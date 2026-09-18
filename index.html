@@ -21,7 +21,7 @@
             cursor: none;
         }
 
-        /* ========== АНИМИРОВАННЫЙ ФОН С ГРАДИЕНТОМ (Пункт 10) ========== */
+        /* ========== АНИМИРОВАННЫЙ ФОН С ГРАДИЕНТОМ ========== */
         .animated-bg {
             position: fixed;
             top: 0;
@@ -40,7 +40,7 @@
             100% { background-position: 0% 50%; }
         }
 
-        /* ========== КАСТОМНЫЙ КУРСОР (Пункт 3) ========== */
+        /* ========== КАСТОМНЫЙ КУРСОР ========== */
         .custom-cursor {
             position: fixed;
             width: 30px;
@@ -114,42 +114,6 @@
             50% { box-shadow: 0 0 50px rgba(0, 255, 4, 0.5), inset 0 0 50px rgba(7, 235, 15, 0.2); }
         }
 
-        /* ========== ИНДИКАТОР LIVE (Пункт 6) ========== */
-        .live-indicator {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: rgba(255, 0, 0, 0.2);
-            border: 2px solid #ff0000;
-            border-radius: 20px;
-            padding: 8px 20px;
-            margin-bottom: 20px;
-            font-size: 14px;
-            font-weight: 700;
-            color: #ff0000;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            animation: livePulse 2s ease-in-out infinite;
-        }
-
-        .live-dot {
-            width: 10px;
-            height: 10px;
-            background: #ff0000;
-            border-radius: 50%;
-            animation: dotPulse 1.5s ease-in-out infinite;
-        }
-
-        @keyframes livePulse {
-            0%, 100% { box-shadow: 0 0 10px rgba(255, 0, 0, 0.5); }
-            50% { box-shadow: 0 0 25px rgba(255, 0, 0, 0.9); }
-        }
-
-        @keyframes dotPulse {
-            0%, 100% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.3); opacity: 0.7; }
-        }
-
         /* ========== АВАТАР ========== */
         .avatar-container {
             position: relative;
@@ -192,7 +156,7 @@
             50% { transform: translateY(-10px) rotate(5deg); }
         }
 
-        /* ========== GLITCH-ЭФФЕКТ (Пункт 1) ========== */
+        /* ========== GLITCH-ЭФФЕКТ ========== */
         .glitch-title {
             font-size: 32px;
             margin-bottom: 15px;
@@ -226,11 +190,11 @@
             }
         }
 
-        /* ========== АНИМАЦИЯ ПЕЧАТАНИЯ (Пункт 5) ========== */
+        /* ========== АНИМАЦИЯ ПЕЧАТАНИЯ ========== */
         .typing-text {
             font-size: 16px;
             color: #b0b0b0;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
             line-height: 1.6;
             min-height: 60px;
         }
@@ -246,96 +210,36 @@
             51%, 100% { opacity: 0; }
         }
 
-        /* ========== МИНИМАЛЬНАЯ СУММА ========== */
+        /* ========== МИНИМАЛЬНАЯ СУММА (КОМПАКТНАЯ) ========== */
         .min-donate-info {
-            background: rgba(0, 255, 4, 0.1);
-            border: 2px solid #00ff04;
-            border-radius: 15px;
-            padding: 20px;
-            margin: 25px 0;
-            box-shadow: 0 0 20px rgba(0, 255, 4, 0.3);
-            animation: pulseBorder 2s ease-in-out infinite;
-        }
-
-        @keyframes pulseBorder {
-            0%, 100% { box-shadow: 0 0 20px rgba(0, 255, 4, 0.3); }
-            50% { box-shadow: 0 0 35px rgba(0, 255, 4, 0.6); }
+            display: inline-block;
+            background: rgba(0, 255, 4, 0.05);
+            border: 1px solid #0da64d;
+            border-radius: 10px;
+            padding: 12px 25px;
+            margin: 20px 0;
         }
 
         .min-donate-label {
-            font-size: 14px;
+            font-size: 12px;
             color: #07eb0f;
             text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 10px;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
         }
 
         .min-donate-amount {
-            font-size: 48px;
+            font-size: 28px;
             font-weight: 700;
             color: #00ff04;
-            text-shadow: 0 0 20px rgba(0, 255, 4, 0.8);
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
+            gap: 5px;
         }
 
         .min-donate-amount .currency {
-            font-size: 32px;
-        }
-
-        .min-donate-note {
-            font-size: 13px;
-            color: #0da64d;
-            margin-top: 8px;
-        }
-
-        /* ========== УРОВНИ ДОНАТОВ (Пункт 7) ========== */
-        .donate-tiers {
-            background: rgba(0, 0, 0, 0.3);
-            border: 1px solid #0da64d;
-            border-radius: 15px;
-            padding: 20px;
-            margin: 25px 0;
-        }
-
-        .tiers-title {
-            font-size: 18px;
-            color: #00ff04;
-            margin-bottom: 15px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .tier-item {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            padding: 12px;
-            margin: 8px 0;
-            background: rgba(0, 255, 4, 0.05);
-            border-left: 3px solid #00ff04;
-            border-radius: 8px;
-            transition: all 0.3s ease;
-        }
-
-        .tier-item:hover {
-            background: rgba(0, 255, 4, 0.15);
-            transform: translateX(5px);
-        }
-
-        .tier-amount {
             font-size: 20px;
-            font-weight: 700;
-            color: #00ff04;
-            min-width: 80px;
-        }
-
-        .tier-reward {
-            font-size: 14px;
-            color: #b0b0b0;
-            text-align: left;
         }
 
         /* ========== ПЕРЕКЛЮЧАТЕЛЬ ПЛАТФОРМ ========== */
@@ -343,7 +247,7 @@
             display: flex;
             gap: 15px;
             justify-content: center;
-            margin: 25px 0;
+            margin: 20px 0;
             flex-wrap: wrap;
         }
 
@@ -383,7 +287,7 @@
             border: 1px solid #0da64d;
             border-radius: 15px;
             padding: 20px;
-            margin: 25px 0;
+            margin: 20px 0;
             box-shadow: 0 0 20px rgba(13, 166, 77, 0.3);
             min-height: 260px;
             display: flex;
@@ -427,30 +331,13 @@
             box-shadow: 0 10px 40px rgba(0, 255, 4, 0.9);
         }
 
-        /* ========== СЧЁТЧИК ПОСЕЩЕНИЙ (Пункт 9) ========== */
-        .visitor-counter {
-            background: rgba(0, 0, 0, 0.3);
-            border: 1px solid #0da64d;
-            border-radius: 10px;
-            padding: 12px 20px;
-            margin: 20px 0;
-            font-size: 14px;
-            color: #07eb0f;
-        }
-
-        .visitor-counter span {
-            color: #00ff04;
-            font-weight: 700;
-            font-size: 18px;
-        }
-
         /* ========== СОЦИАЛЬНЫЕ ССЫЛКИ ========== */
         .social-links {
             display: flex;
             justify-content: center;
             gap: 15px;
             flex-wrap: wrap;
-            margin-top: 25px;
+            margin-top: 20px;
         }
 
         .social-btn {
@@ -475,7 +362,7 @@
             transform: translateY(-3px);
         }
 
-        /* ========== СЕКРЕТНЫЙ РЕЖИМ (Пункт 8 - Konami Code) ========== */
+        /* ========== СЕКРЕТНЫЙ РЕЖИМ (ТОЛЬКО СТРЕЛКИ) ========== */
         .secret-mode {
             position: fixed;
             top: 0;
@@ -525,7 +412,7 @@
             box-shadow: 0 0 30px #00ff04;
         }
 
-        /* ========== ЧАСТИЦЫ ПРИ КЛИКЕ (Пункт 2) ========== */
+        /* ========== ЧАСТИЦЫ ПРИ КЛИКЕ ========== */
         .click-particle {
             position: fixed;
             width: 6px;
@@ -565,18 +452,13 @@
                 min-width: 100%;
             }
             .min-donate-amount {
-                font-size: 40px;
+                font-size: 24px;
             }
             .custom-cursor {
                 display: none;
             }
             body {
                 cursor: auto;
-            }
-            .tier-item {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 5px;
             }
         }
     </style>
@@ -595,10 +477,10 @@
     <!-- Плавающие частицы -->
     <div id="particles"></div>
 
-    <!-- Секретный режим (Konami Code) -->
+    <!-- Секретный режим -->
     <div class="secret-mode" id="secretMode">
-        <h2>🎮 СЕКРЕТНЫЙ РЕЖИМ АКТИВИРОВАН! 🎮</h2>
-        <p>Ты нашёл пасхалку! Ты настоящий геймер! 💀</p>
+        <h2> СЕКРЕТНЫЙ РЕЖИМ АКТИВИРОВАН! </h2>
+        <p>Ты нашёл пасхалку! Ты настоящий геймер! </p>
         <button class="close-secret" onclick="closeSecretMode()">Закрыть</button>
     </div>
 
@@ -609,12 +491,6 @@
             <div class="skull-decor"></div>
             <div class="skull-decor"></div>
             <div class="skull-decor"></div>
-
-            <!-- Индикатор LIVE -->
-            <div class="live-indicator">
-                <div class="live-dot"></div>
-                <span>LIVE</span>
-            </div>
 
             <!-- Аватар -->
             <div class="avatar-container">
@@ -627,34 +503,12 @@
             <!-- Текст с анимацией печатания -->
             <p class="typing-text" id="typingText"></p>
 
-            <!-- Минимальная сумма доната -->
+            <!-- Минимальная сумма доната (компактная) -->
             <div class="min-donate-info">
-                <div class="min-donate-label"> Минимальный донат</div>
+                <div class="min-donate-label">Минимальный донат</div>
                 <div class="min-donate-amount">
                     <span>30</span>
                     <span class="currency">₽</span>
-                </div>
-                <div class="min-donate-note">Любая сумма важна! Спасибо за поддержку!</div>
-            </div>
-
-            <!-- Уровни донатов -->
-            <div class="donate-tiers">
-                <div class="tiers-title"> Уровни поддержки</div>
-                <div class="tier-item">
-                    <div class="tier-amount">100 ₽</div>
-                    <div class="tier-reward">💚 Спасибо в чате</div>
-                </div>
-                <div class="tier-item">
-                    <div class="tier-amount">500 ₽</div>
-                    <div class="tier-reward">⭐ Особая благодарность</div>
-                </div>
-                <div class="tier-item">
-                    <div class="tier-amount">1000 ₽</div>
-                    <div class="tier-reward">👑 VIP статус</div>
-                </div>
-                <div class="tier-item">
-                    <div class="tier-amount">5000 ₽</div>
-                    <div class="tier-reward">🎮 Игра вместе со стримером</div>
                 </div>
             </div>
 
@@ -690,11 +544,6 @@
                         Откроется в новой вкладке
                     </p>
                 </div>
-            </div>
-
-            <!-- Счётчик посещений -->
-            <div class="visitor-counter">
-                👁️ Спасибо что заглянули! Просмотров: <span id="viewCount">1,337</span>
             </div>
 
             <!-- Социальные ссылки -->
@@ -835,18 +684,9 @@
 
         createParticles();
 
-        // ========== СЧЁТЧИК ПОСЕЩЕНИЙ (Имитация) ==========
-        let viewCount = 1337;
-        const viewCountElement = document.getElementById('viewCount');
-        
-        // Увеличиваем счётчик каждые 30 секунд
-        setInterval(() => {
-            viewCount += Math.floor(Math.random() * 3) + 1;
-            viewCountElement.textContent = viewCount.toLocaleString();
-        }, 30000);
-
-        // ========== СЕКРЕТНЫЙ РЕЖИМ (KONAMI CODE) ==========
-        const konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
+        // ========== СЕКРЕТНЫЙ РЕЖИМ (ТОЛЬКО СТРЕЛКИ) ==========
+        // Комбинация: ↑ ↑ ↓ ↓ ← → ← →
+        const konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight'];
         let konamiIndex = 0;
 
         document.addEventListener('keydown', (e) => {
