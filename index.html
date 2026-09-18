@@ -73,7 +73,6 @@
             border-color: #07eb0f;
         }
 
-        /* Класс для отключения кастомного курсора */
         body.default-cursor {
             cursor: auto;
         }
@@ -219,7 +218,7 @@
             51%, 100% { opacity: 0; }
         }
 
-        /* ========== МИНИМАЛЬНАЯ СУММА (КОМПАКТНАЯ) ========== */
+        /* ========== МИНИМАЛЬНАЯ СУММА ========== */
         .min-donate-info {
             display: inline-block;
             background: rgba(0, 255, 4, 0.05);
@@ -340,6 +339,29 @@
             box-shadow: 0 10px 40px rgba(0, 255, 4, 0.9);
         }
 
+        /* ========== КНОПКА ПОЛНОЙ ВЕРСИИ DONATEPAY ========== */
+        .full-donate-btn {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 10px 20px;
+            background: transparent;
+            color: #00ff04;
+            border: 1px dashed #0da64d;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: none;
+        }
+
+        .full-donate-btn:hover {
+            background: rgba(0, 255, 4, 0.1);
+            border: 1px solid #00ff04;
+            box-shadow: 0 0 15px rgba(0, 255, 4, 0.4);
+            transform: translateY(-2px);
+        }
+
         /* ========== СОЦИАЛЬНЫЕ ССЫЛКИ ========== */
         .social-links {
             display: flex;
@@ -371,7 +393,7 @@
             transform: translateY(-3px);
         }
 
-        /* ========== СЕКРЕТНЫЙ РЕЖИМ (СКРЫТЫЙ КОНТЕНТ) ========== */
+        /* ========== СЕКРЕТНЫЙ КОНТЕНТ ========== */
         .secret-content {
             display: none;
             background: rgba(0, 0, 0, 0.95);
@@ -517,7 +539,7 @@
     <div class="container">
         <div class="content-box">
             <!-- Декоративные черепа и надгробия -->
-            <div class="skull-decor"></div>
+            <div class="skull-decor">💀</div>
             <div class="skull-decor">🪦</div>
             <div class="skull-decor">💀</div>
             <div class="skull-decor">🪦</div>
@@ -533,7 +555,7 @@
             <!-- Текст с анимацией печатания -->
             <p class="typing-text" id="typingText"></p>
 
-            <!-- Минимальная сумма доната (компактная) -->
+            <!-- Минимальная сумма доната -->
             <div class="min-donate-info">
                 <div class="min-donate-label">Минимальный донат</div>
                 <div class="min-donate-amount">
@@ -548,7 +570,7 @@
                     💚 DonatePay
                 </button>
                 <button class="platform-btn" onclick="switchPlatform('donationalerts')">
-                    🔔 DonationAlerts
+                     DonationAlerts
                 </button>
             </div>
 
@@ -563,12 +585,18 @@
                         frameBorder="0"
                         scrolling="no"
                     ></iframe>
+                    
+                    <!-- КНОПКА ПОЛНОЙ ВЕРСИИ -->
+                    <br>
+                    <a href="https://new.donatepay.ru/donate/1534053" target="_blank" class="full-donate-btn">
+                        🎁 Отправить с GIF / Картинкой (Полная версия)
+                    </a>
                 </div>
 
                 <!-- DONATIONALERTS -->
                 <div id="donationalerts-widget" class="widget-container">
                     <a href="https://www.donationalerts.com/r/jakefantom" target="_blank" class="da-button">
-                         Перейти к донату
+                        🔔 Перейти к донату
                     </a>
                     <p style="margin-top: 20px; color: #b0b0b0; font-size: 14px;">
                         Откроется в новой вкладке
@@ -576,7 +604,7 @@
                 </div>
             </div>
 
-            <!-- СЕКРЕТНЫЙ КОНТЕНТ (скрыт по умолчанию) -->
+            <!-- СЕКРЕТНЫЙ КОНТЕНТ -->
             <div class="secret-content" id="secretContent">
                 <h2 class="secret-title"> СЕКРЕТНЫЙ КОНТЕНТ РАЗБЛОКИРОВАН! </h2>
                 <p class="secret-message">
@@ -650,8 +678,8 @@
             }
         }
 
-        // ========== АНИМАЦИЯ ПЕЧАТАНИЯ ТЕКСТА ==========
-        const textToType = "Привет! Твой донат поможет развивать канал и делать стримы еще круче! Каждый вклад - это шаг к новым вершинам. Спасибо, что ты со мной!";
+        // ========== АНИМАЦИЯ ПЕЧАТАНИЯ ==========
+        const textToType = "Привет! Твой донат поможет развивать канал и делать стримы еще круче! Каждый вклад — это шаг к новым вершинам. Спасибо, что ты с нами!";
         const typingElement = document.getElementById('typingText');
         let charIndex = 0;
 
@@ -687,7 +715,7 @@
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
 
-        const skulls = ['💀', '🪦', '️'];
+        const skulls = ['💀', '🪦', '☠️'];
         const fontSize = 20;
         const columns = canvas.width / fontSize;
         const drops = [];
@@ -732,7 +760,7 @@
 
         createParticles();
 
-        // ========== СЕКРЕТНЫЙ РЕЖИМ (ТОЛЬКО СТРЕЛКИ) ==========
+        // ========== СЕКРЕТНЫЙ РЕЖИМ ==========
         const konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight'];
         let konamiIndex = 0;
 
@@ -749,13 +777,9 @@
         });
 
         function activateSecretMode() {
-            // Показываем секретный контент
             document.getElementById('secretContent').classList.add('active');
-            
-            // Отключаем кастомный курсор (Вариант B)
             document.body.classList.add('default-cursor');
             
-            // Эффект конфетти
             for (let i = 0; i < 50; i++) {
                 setTimeout(() => {
                     createClickParticles(
@@ -767,14 +791,10 @@
         }
 
         function closeSecretMode() {
-            // Скрываем секретный контент
             document.getElementById('secretContent').classList.remove('active');
-            
-            // Возвращаем кастомный курсор
             document.body.classList.remove('default-cursor');
         }
 
-        // Адаптация canvas при изменении размера окна
         window.addEventListener('resize', () => {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
