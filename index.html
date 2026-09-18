@@ -18,6 +18,59 @@
             min-height: 100vh;
             overflow-x: hidden;
             position: relative;
+            cursor: none;
+        }
+
+        /* ========== АНИМИРОВАННЫЙ ФОН С ГРАДИЕНТОМ (Пункт 10) ========== */
+        .animated-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(-45deg, #2e2e2e, #1a1a1a, #0d3d1f, #2e2e2e);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            z-index: -2;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* ========== КАСТОМНЫЙ КУРСОР (Пункт 3) ========== */
+        .custom-cursor {
+            position: fixed;
+            width: 30px;
+            height: 30px;
+            border: 2px solid #00ff04;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 20px rgba(0, 255, 4, 0.8);
+            transition: width 0.2s, height 0.2s;
+        }
+
+        .custom-cursor::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 4px;
+            height: 4px;
+            background: #00ff04;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 10px #00ff04;
+        }
+
+        .custom-cursor.click {
+            width: 50px;
+            height: 50px;
+            border-color: #07eb0f;
         }
 
         /* ========== МАТРИЧНЫЙ ДОЖДЬ ========== */
@@ -27,7 +80,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: 0;
+            z-index: -1;
             opacity: 0.3;
         }
 
@@ -59,6 +112,42 @@
         @keyframes borderGlow {
             0%, 100% { box-shadow: 0 0 30px rgba(0, 255, 4, 0.3), inset 0 0 30px rgba(7, 235, 15, 0.1); }
             50% { box-shadow: 0 0 50px rgba(0, 255, 4, 0.5), inset 0 0 50px rgba(7, 235, 15, 0.2); }
+        }
+
+        /* ========== ИНДИКАТОР LIVE (Пункт 6) ========== */
+        .live-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 0, 0, 0.2);
+            border: 2px solid #ff0000;
+            border-radius: 20px;
+            padding: 8px 20px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            font-weight: 700;
+            color: #ff0000;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            animation: livePulse 2s ease-in-out infinite;
+        }
+
+        .live-dot {
+            width: 10px;
+            height: 10px;
+            background: #ff0000;
+            border-radius: 50%;
+            animation: dotPulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes livePulse {
+            0%, 100% { box-shadow: 0 0 10px rgba(255, 0, 0, 0.5); }
+            50% { box-shadow: 0 0 25px rgba(255, 0, 0, 0.9); }
+        }
+
+        @keyframes dotPulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.3); opacity: 0.7; }
         }
 
         /* ========== АВАТАР ========== */
@@ -103,19 +192,150 @@
             50% { transform: translateY(-10px) rotate(5deg); }
         }
 
-        h1 {
+        /* ========== GLITCH-ЭФФЕКТ (Пункт 1) ========== */
+        .glitch-title {
             font-size: 32px;
             margin-bottom: 15px;
             color: #00ff04;
             text-shadow: 0 0 20px rgba(0, 255, 4, 0.8);
             letter-spacing: 1px;
+            position: relative;
+            animation: glitch 3s infinite;
         }
 
-        .description {
+        @keyframes glitch {
+            0%, 100% {
+                text-shadow: 0 0 20px rgba(0, 255, 4, 0.8);
+                transform: translate(0);
+            }
+            20% {
+                text-shadow: -2px 0 #ff00ff, 2px 0 #00ffff;
+                transform: translate(-2px, 2px);
+            }
+            40% {
+                text-shadow: 2px 0 #ff00ff, -2px 0 #00ffff;
+                transform: translate(2px, -2px);
+            }
+            60% {
+                text-shadow: -2px 0 #ff00ff, 2px 0 #00ffff;
+                transform: translate(-1px, 1px);
+            }
+            80% {
+                text-shadow: 2px 0 #ff00ff, -2px 0 #00ffff;
+                transform: translate(1px, -1px);
+            }
+        }
+
+        /* ========== АНИМАЦИЯ ПЕЧАТАНИЯ (Пункт 5) ========== */
+        .typing-text {
             font-size: 16px;
             color: #b0b0b0;
             margin-bottom: 30px;
             line-height: 1.6;
+            min-height: 60px;
+        }
+
+        .typing-text::after {
+            content: '|';
+            animation: blink 1s infinite;
+            color: #00ff04;
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+
+        /* ========== МИНИМАЛЬНАЯ СУММА ========== */
+        .min-donate-info {
+            background: rgba(0, 255, 4, 0.1);
+            border: 2px solid #00ff04;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 25px 0;
+            box-shadow: 0 0 20px rgba(0, 255, 4, 0.3);
+            animation: pulseBorder 2s ease-in-out infinite;
+        }
+
+        @keyframes pulseBorder {
+            0%, 100% { box-shadow: 0 0 20px rgba(0, 255, 4, 0.3); }
+            50% { box-shadow: 0 0 35px rgba(0, 255, 4, 0.6); }
+        }
+
+        .min-donate-label {
+            font-size: 14px;
+            color: #07eb0f;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+
+        .min-donate-amount {
+            font-size: 48px;
+            font-weight: 700;
+            color: #00ff04;
+            text-shadow: 0 0 20px rgba(0, 255, 4, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .min-donate-amount .currency {
+            font-size: 32px;
+        }
+
+        .min-donate-note {
+            font-size: 13px;
+            color: #0da64d;
+            margin-top: 8px;
+        }
+
+        /* ========== УРОВНИ ДОНАТОВ (Пункт 7) ========== */
+        .donate-tiers {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid #0da64d;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 25px 0;
+        }
+
+        .tiers-title {
+            font-size: 18px;
+            color: #00ff04;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .tier-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 12px;
+            margin: 8px 0;
+            background: rgba(0, 255, 4, 0.05);
+            border-left: 3px solid #00ff04;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .tier-item:hover {
+            background: rgba(0, 255, 4, 0.15);
+            transform: translateX(5px);
+        }
+
+        .tier-amount {
+            font-size: 20px;
+            font-weight: 700;
+            color: #00ff04;
+            min-width: 80px;
+        }
+
+        .tier-reward {
+            font-size: 14px;
+            color: #b0b0b0;
+            text-align: left;
         }
 
         /* ========== ПЕРЕКЛЮЧАТЕЛЬ ПЛАТФОРМ ========== */
@@ -123,7 +343,7 @@
             display: flex;
             gap: 15px;
             justify-content: center;
-            margin-bottom: 25px;
+            margin: 25px 0;
             flex-wrap: wrap;
         }
 
@@ -137,7 +357,7 @@
             font-size: 16px;
             font-weight: 700;
             border-radius: 12px;
-            cursor: pointer;
+            cursor: none;
             transition: all 0.3s ease;
             text-transform: uppercase;
             letter-spacing: 1px;
@@ -163,7 +383,7 @@
             border: 1px solid #0da64d;
             border-radius: 15px;
             padding: 20px;
-            margin: 30px 0;
+            margin: 25px 0;
             box-shadow: 0 0 20px rgba(13, 166, 77, 0.3);
             min-height: 260px;
             display: flex;
@@ -185,7 +405,6 @@
             max-width: 100%;
         }
 
-        /* Стили для кнопки DonationAlerts */
         .da-button {
             display: inline-block;
             padding: 20px 40px;
@@ -200,11 +419,29 @@
             transition: all 0.3s ease;
             text-transform: uppercase;
             letter-spacing: 1px;
+            cursor: none;
         }
 
         .da-button:hover {
             transform: translateY(-5px) scale(1.05);
             box-shadow: 0 10px 40px rgba(0, 255, 4, 0.9);
+        }
+
+        /* ========== СЧЁТЧИК ПОСЕЩЕНИЙ (Пункт 9) ========== */
+        .visitor-counter {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid #0da64d;
+            border-radius: 10px;
+            padding: 12px 20px;
+            margin: 20px 0;
+            font-size: 14px;
+            color: #07eb0f;
+        }
+
+        .visitor-counter span {
+            color: #00ff04;
+            font-weight: 700;
+            font-size: 18px;
         }
 
         /* ========== СОЦИАЛЬНЫЕ ССЫЛКИ ========== */
@@ -228,6 +465,7 @@
             transition: all 0.3s ease;
             text-transform: uppercase;
             letter-spacing: 1px;
+            cursor: none;
         }
 
         .social-btn:hover {
@@ -237,7 +475,69 @@
             transform: translateY(-3px);
         }
 
-        /* ========== ЧАСТИЦЫ ========== */
+        /* ========== СЕКРЕТНЫЙ РЕЖИМ (Пункт 8 - Konami Code) ========== */
+        .secret-mode {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 10000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .secret-mode.active {
+            display: flex;
+        }
+
+        .secret-mode h2 {
+            font-size: 48px;
+            color: #00ff04;
+            text-shadow: 0 0 30px #00ff04;
+            margin-bottom: 20px;
+            animation: glitch 1s infinite;
+        }
+
+        .secret-mode p {
+            font-size: 24px;
+            color: #07eb0f;
+        }
+
+        .secret-mode .close-secret {
+            margin-top: 30px;
+            padding: 15px 40px;
+            background: #00ff04;
+            color: #2e2e2e;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .secret-mode .close-secret:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 30px #00ff04;
+        }
+
+        /* ========== ЧАСТИЦЫ ПРИ КЛИКЕ (Пункт 2) ========== */
+        .click-particle {
+            position: fixed;
+            width: 6px;
+            height: 6px;
+            background: #00ff04;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9998;
+            box-shadow: 0 0 10px #00ff04;
+        }
+
+        /* ========== ПЛАВАЮЩИЕ ЧАСТИЦЫ ========== */
         .particle {
             position: fixed;
             width: 4px;
@@ -254,7 +554,7 @@
             .content-box {
                 padding: 30px 20px;
             }
-            h1 {
+            .glitch-title {
                 font-size: 24px;
             }
             .avatar-container {
@@ -264,35 +564,99 @@
             .platform-btn {
                 min-width: 100%;
             }
+            .min-donate-amount {
+                font-size: 40px;
+            }
+            .custom-cursor {
+                display: none;
+            }
+            body {
+                cursor: auto;
+            }
+            .tier-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 5px;
+            }
         }
     </style>
 </head>
 <body>
 
-    <!-- Canvas для матричного дождя с черепами -->
+    <!-- Анимированный фон -->
+    <div class="animated-bg"></div>
+
+    <!-- Кастомный курсор -->
+    <div class="custom-cursor"></div>
+
+    <!-- Canvas для матричного дождя -->
     <canvas id="skullCanvas"></canvas>
 
     <!-- Плавающие частицы -->
     <div id="particles"></div>
 
+    <!-- Секретный режим (Konami Code) -->
+    <div class="secret-mode" id="secretMode">
+        <h2>🎮 СЕКРЕТНЫЙ РЕЖИМ АКТИВИРОВАН! 🎮</h2>
+        <p>Ты нашёл пасхалку! Ты настоящий геймер! 💀</p>
+        <button class="close-secret" onclick="closeSecretMode()">Закрыть</button>
+    </div>
+
     <div class="container">
         <div class="content-box">
             <!-- Декоративные черепа -->
-            <div class="skull-decor">💀</div>
             <div class="skull-decor"></div>
             <div class="skull-decor"></div>
             <div class="skull-decor"></div>
+            <div class="skull-decor"></div>
+
+            <!-- Индикатор LIVE -->
+            <div class="live-indicator">
+                <div class="live-dot"></div>
+                <span>LIVE</span>
+            </div>
 
             <!-- Аватар -->
             <div class="avatar-container">
                 <img src="https://i.imgur.com/zLAns40.png" alt="Jake Fantom Avatar" class="avatar">
             </div>
 
-            <h1> JAKE FANTOM ⚡</h1>
-            <p class="description">
-                Привет! Твой донат поможет развивать канал и делать стримы еще круче!<br>
-                Каждый вклад - это шаг к новым вершинам. Спасибо, что ты со мной! 
-            </p>
+            <!-- Заголовок с glitch-эффектом -->
+            <h1 class="glitch-title"> JAKE FANTOM </h1>
+            
+            <!-- Текст с анимацией печатания -->
+            <p class="typing-text" id="typingText"></p>
+
+            <!-- Минимальная сумма доната -->
+            <div class="min-donate-info">
+                <div class="min-donate-label"> Минимальный донат</div>
+                <div class="min-donate-amount">
+                    <span>30</span>
+                    <span class="currency">₽</span>
+                </div>
+                <div class="min-donate-note">Любая сумма важна! Спасибо за поддержку!</div>
+            </div>
+
+            <!-- Уровни донатов -->
+            <div class="donate-tiers">
+                <div class="tiers-title"> Уровни поддержки</div>
+                <div class="tier-item">
+                    <div class="tier-amount">100 ₽</div>
+                    <div class="tier-reward">💚 Спасибо в чате</div>
+                </div>
+                <div class="tier-item">
+                    <div class="tier-amount">500 ₽</div>
+                    <div class="tier-reward">⭐ Особая благодарность</div>
+                </div>
+                <div class="tier-item">
+                    <div class="tier-amount">1000 ₽</div>
+                    <div class="tier-reward">👑 VIP статус</div>
+                </div>
+                <div class="tier-item">
+                    <div class="tier-amount">5000 ₽</div>
+                    <div class="tier-reward">🎮 Игра вместе со стримером</div>
+                </div>
+            </div>
 
             <!-- Переключатель платформ -->
             <div class="platform-switcher">
@@ -306,7 +670,7 @@
 
             <!-- Блок с виджетами -->
             <div class="widget-wrapper">
-                <!-- ========== DONATEPAY (АКТИВНЫЙ) ========== -->
+                <!-- DONATEPAY -->
                 <div id="donatepay-widget" class="widget-container active">
                     <iframe 
                         src="https://widget.donatepay.ru/widgets/page/24b44dc68e48fb37a2f23d99c8e52a1e83f83ce59ca35b9c87a04ee09fd217c3?widget_id=7869312&sum=200" 
@@ -317,54 +681,20 @@
                     ></iframe>
                 </div>
 
-                <!-- ========== DONATIONALERTS (ССЫЛКА) ========== -->
+                <!-- DONATIONALERTS -->
                 <div id="donationalerts-widget" class="widget-container">
-                    <!-- 
-                        Если хочешь вернуть старый код - просто раскомментируй его ниже
-                        и удали или закомментируй текущий код
-                    -->
-                    
-                    <!-- ВАРИАНТ 1: Красивая кнопка (сейчас активно) -->
                     <a href="https://www.donationalerts.com/r/jakefantom" target="_blank" class="da-button">
                         🔔 Перейти к донату
                     </a>
                     <p style="margin-top: 20px; color: #b0b0b0; font-size: 14px;">
                         Откроется в новой вкладке
                     </p>
-
-                    <!-- 
-                    ВАРИАНТ 2: Если хочешь iframe (закомментируй кнопку выше и раскомментируй это):
-                    
-                    <iframe 
-                        src="https://www.donationalerts.com/r/jakefantom" 
-                        width="100%" 
-                        height="220" 
-                        frameBorder="0"
-                        scrolling="no"
-                    ></iframe>
-                    
-                    ПРИМЕЧАНИЕ: DonationAlerts может блокировать отображение в iframe
-                    -->
                 </div>
+            </div>
 
-                <!-- 
-                ================================================
-                РЕЗЕРВНАЯ КОПИЯ СТАРОГО КОДА (ЗАКОММЕНТИРОВАНО)
-                ================================================
-                Если что-то пойдет не так, просто удали весь текущий код
-                и раскомментируй этот блок:
-                
-                <div id="donatepay-widget" class="widget-container active">
-                    <iframe 
-                        src="https://widget.donatepay.ru/widgets/page/24b44dc68e48fb37a2f23d99c8e52a1e83f83ce59ca35b9c87a04ee09fd217c3?widget_id=7869312&sum=200" 
-                        width="510" 
-                        height="220" 
-                        frameBorder="0"
-                        scrolling="no"
-                    ></iframe>
-                </div>
-                
-                -->
+            <!-- Счётчик посещений -->
+            <div class="visitor-counter">
+                👁️ Спасибо что заглянули! Просмотров: <span id="viewCount">1,337</span>
             </div>
 
             <!-- Социальные ссылки -->
@@ -377,22 +707,79 @@
     </div>
 
     <script>
+        // ========== КАСТОМНЫЙ КУРСОР ==========
+        const cursor = document.querySelector('.custom-cursor');
+        
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
+
+        document.addEventListener('mousedown', () => {
+            cursor.classList.add('click');
+        });
+
+        document.addEventListener('mouseup', () => {
+            cursor.classList.remove('click');
+        });
+
+        // ========== ЧАСТИЦЫ ПРИ КЛИКЕ ==========
+        document.addEventListener('click', (e) => {
+            createClickParticles(e.clientX, e.clientY);
+        });
+
+        function createClickParticles(x, y) {
+            const particleCount = 12;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'click-particle';
+                particle.style.left = x + 'px';
+                particle.style.top = y + 'px';
+                document.body.appendChild(particle);
+
+                const angle = (Math.PI * 2 * i) / particleCount;
+                const velocity = 50 + Math.random() * 50;
+                const tx = Math.cos(angle) * velocity;
+                const ty = Math.sin(angle) * velocity;
+
+                particle.animate([
+                    { transform: 'translate(0, 0) scale(1)', opacity: 1 },
+                    { transform: `translate(${tx}px, ${ty}px) scale(0)`, opacity: 0 }
+                ], {
+                    duration: 600,
+                    easing: 'cubic-bezier(0, .9, .57, 1)',
+                }).onfinish = () => particle.remove();
+            }
+        }
+
+        // ========== АНИМАЦИЯ ПЕЧАТАНИЯ ТЕКСТА ==========
+        const textToType = "Привет! Твой донат поможет развивать канал и делать стримы еще круче! Каждый вклад — это шаг к новым вершинам. Спасибо, что ты с нами!";
+        const typingElement = document.getElementById('typingText');
+        let charIndex = 0;
+
+        function typeText() {
+            if (charIndex < textToType.length) {
+                typingElement.textContent += textToType.charAt(charIndex);
+                charIndex++;
+                setTimeout(typeText, 30);
+            }
+        }
+
+        setTimeout(typeText, 500);
+
         // ========== ПЕРЕКЛЮЧЕНИЕ ПЛАТФОРМ ==========
         function switchPlatform(platform) {
-            // Убираем active со всех кнопок
             document.querySelectorAll('.platform-btn').forEach(btn => {
                 btn.classList.remove('active');
             });
             
-            // Добавляем active нажатой кнопке
             event.target.classList.add('active');
             
-            // Скрываем все виджеты
             document.querySelectorAll('.widget-container').forEach(widget => {
                 widget.classList.remove('active');
             });
             
-            // Показываем нужный виджет
             document.getElementById(platform + '-widget').classList.add('active');
         }
 
@@ -448,30 +835,54 @@
 
         createParticles();
 
+        // ========== СЧЁТЧИК ПОСЕЩЕНИЙ (Имитация) ==========
+        let viewCount = 1337;
+        const viewCountElement = document.getElementById('viewCount');
+        
+        // Увеличиваем счётчик каждые 30 секунд
+        setInterval(() => {
+            viewCount += Math.floor(Math.random() * 3) + 1;
+            viewCountElement.textContent = viewCount.toLocaleString();
+        }, 30000);
+
+        // ========== СЕКРЕТНЫЙ РЕЖИМ (KONAMI CODE) ==========
+        const konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
+        let konamiIndex = 0;
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === konamiCode[konamiIndex]) {
+                konamiIndex++;
+                if (konamiIndex === konamiCode.length) {
+                    activateSecretMode();
+                    konamiIndex = 0;
+                }
+            } else {
+                konamiIndex = 0;
+            }
+        });
+
+        function activateSecretMode() {
+            document.getElementById('secretMode').classList.add('active');
+            // Добавляем конфетти
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => {
+                    createClickParticles(
+                        Math.random() * window.innerWidth,
+                        Math.random() * window.innerHeight
+                    );
+                }, i * 50);
+            }
+        }
+
+        function closeSecretMode() {
+            document.getElementById('secretMode').classList.remove('active');
+        }
+
         // Адаптация canvas при изменении размера окна
         window.addEventListener('resize', () => {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
         });
-
-        /*
-        // ========== РЕЗЕРВНЫЙ КОД JAVASCRIPT ==========
-        // Если что-то сломается, можешь использовать старую версию функций
-        
-        function oldSwitchPlatform(platform) {
-            var buttons = document.getElementsByClassName('platform-btn');
-            for (var i = 0; i < buttons.length; i++) {
-                buttons[i].classList.remove('active');
-            }
-            event.target.classList.add('active');
-            
-            var widgets = document.getElementsByClassName('widget-container');
-            for (var i = 0; i < widgets.length; i++) {
-                widgets[i].classList.remove('active');
-            }
-            document.getElementById(platform + '-widget').classList.add('active');
-        }
-        */
     </script>
 
 </body>
