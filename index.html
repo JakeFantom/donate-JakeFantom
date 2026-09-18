@@ -20,7 +20,7 @@
             position: relative;
         }
 
-        /* Матричный дождь с черепами */
+        /* ========== МАТРИЧНЫЙ ДОЖДЬ ========== */
         #skullCanvas {
             position: fixed;
             top: 0;
@@ -31,7 +31,7 @@
             opacity: 0.3;
         }
 
-        /* Основной контейнер */
+        /* ========== ОСНОВНОЙ КОНТЕЙНЕР ========== */
         .container {
             position: relative;
             z-index: 1;
@@ -61,7 +61,7 @@
             50% { box-shadow: 0 0 50px rgba(0, 255, 4, 0.5), inset 0 0 50px rgba(7, 235, 15, 0.2); }
         }
 
-        /* Аватар с неоновой короной */
+        /* ========== АВАТАР ========== */
         .avatar-container {
             position: relative;
             width: 150px;
@@ -84,7 +84,7 @@
             50% { transform: scale(1.05); box-shadow: 0 0 50px rgba(0, 255, 4, 0.8); }
         }
 
-        /* Декоративные черепа по углам */
+        /* ========== ЧЕРЕПА ДЕКОР ========== */
         .skull-decor {
             position: absolute;
             font-size: 24px;
@@ -118,7 +118,46 @@
             line-height: 1.6;
         }
 
-        /* Блок с виджетом */
+        /* ========== ПЕРЕКЛЮЧАТЕЛЬ ПЛАТФОРМ ========== */
+        .platform-switcher {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+
+        .platform-btn {
+            flex: 1;
+            min-width: 150px;
+            padding: 15px 25px;
+            border: 2px solid #0da64d;
+            background: rgba(0, 0, 0, 0.4);
+            color: #07eb0f;
+            font-size: 16px;
+            font-weight: 700;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .platform-btn:hover {
+            background: rgba(13, 166, 77, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(13, 166, 77, 0.4);
+        }
+
+        .platform-btn.active {
+            background: #00ff04;
+            color: #2e2e2e;
+            border-color: #00ff04;
+            box-shadow: 0 0 25px rgba(0, 255, 4, 0.8);
+            transform: scale(1.05);
+        }
+
+        /* ========== БЛОК С ВИДЖЕТАМИ ========== */
         .widget-wrapper {
             background: rgba(0, 0, 0, 0.4);
             border: 1px solid #0da64d;
@@ -126,14 +165,49 @@
             padding: 20px;
             margin: 30px 0;
             box-shadow: 0 0 20px rgba(13, 166, 77, 0.3);
+            min-height: 260px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        .widget-wrapper iframe {
+        .widget-container {
+            width: 100%;
+            display: none;
+        }
+
+        .widget-container.active {
+            display: block;
+        }
+
+        .widget-container iframe {
             border-radius: 10px;
             max-width: 100%;
         }
 
-        /* Социальные ссылки */
+        /* Стили для кнопки DonationAlerts */
+        .da-button {
+            display: inline-block;
+            padding: 20px 40px;
+            background: linear-gradient(135deg, #04a54b 0%, #07eb0f 100%);
+            color: #2e2e2e;
+            text-decoration: none;
+            font-size: 20px;
+            font-weight: 700;
+            border-radius: 12px;
+            border: 2px solid #00ff04;
+            box-shadow: 0 0 30px rgba(0, 255, 4, 0.6);
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .da-button:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 10px 40px rgba(0, 255, 4, 0.9);
+        }
+
+        /* ========== СОЦИАЛЬНЫЕ ССЫЛКИ ========== */
         .social-links {
             display: flex;
             justify-content: center;
@@ -163,7 +237,7 @@
             transform: translateY(-3px);
         }
 
-        /* Анимированные частицы */
+        /* ========== ЧАСТИЦЫ ========== */
         .particle {
             position: fixed;
             width: 4px;
@@ -175,7 +249,7 @@
             box-shadow: 0 0 10px #07eb0f;
         }
 
-        /* Адаптивность */
+        /* ========== АДАПТИВНОСТЬ ========== */
         @media (max-width: 600px) {
             .content-box {
                 padding: 30px 20px;
@@ -186,6 +260,9 @@
             .avatar-container {
                 width: 120px;
                 height: 120px;
+            }
+            .platform-btn {
+                min-width: 100%;
             }
         }
     </style>
@@ -203,7 +280,7 @@
             <!-- Декоративные черепа -->
             <div class="skull-decor">💀</div>
             <div class="skull-decor"></div>
-            <div class="skull-decor">💀</div>
+            <div class="skull-decor"></div>
             <div class="skull-decor"></div>
 
             <!-- Аватар -->
@@ -217,15 +294,77 @@
                 Каждый вклад — это шаг к новым вершинам. Спасибо, что ты с нами! 
             </p>
 
-            <!-- Виджет DonatePay -->
+            <!-- Переключатель платформ -->
+            <div class="platform-switcher">
+                <button class="platform-btn active" onclick="switchPlatform('donatepay')">
+                    💚 DonatePay
+                </button>
+                <button class="platform-btn" onclick="switchPlatform('donationalerts')">
+                    🔔 DonationAlerts
+                </button>
+            </div>
+
+            <!-- Блок с виджетами -->
             <div class="widget-wrapper">
-                <iframe 
-                    src="https://widget.donatepay.ru/widgets/page/24b44dc68e48fb37a2f23d99c8e52a1e83f83ce59ca35b9c87a04ee09fd217c3?widget_id=7869312&sum=200" 
-                    width="510" 
-                    height="220" 
-                    frameBorder="0"
-                    scrolling="no"
-                ></iframe>
+                <!-- ========== DONATEPAY (АКТИВНЫЙ) ========== -->
+                <div id="donatepay-widget" class="widget-container active">
+                    <iframe 
+                        src="https://widget.donatepay.ru/widgets/page/24b44dc68e48fb37a2f23d99c8e52a1e83f83ce59ca35b9c87a04ee09fd217c3?widget_id=7869312&sum=200" 
+                        width="510" 
+                        height="220" 
+                        frameBorder="0"
+                        scrolling="no"
+                    ></iframe>
+                </div>
+
+                <!-- ========== DONATIONALERTS (ССЫЛКА) ========== -->
+                <div id="donationalerts-widget" class="widget-container">
+                    <!-- 
+                        Если хочешь вернуть старый код - просто раскомментируй его ниже
+                        и удали или закомментируй текущий код
+                    -->
+                    
+                    <!-- ВАРИАНТ 1: Красивая кнопка (сейчас активно) -->
+                    <a href="https://www.donationalerts.com/r/jakefantom" target="_blank" class="da-button">
+                        🔔 Перейти к донату
+                    </a>
+                    <p style="margin-top: 20px; color: #b0b0b0; font-size: 14px;">
+                        Откроется в новой вкладке
+                    </p>
+
+                    <!-- 
+                    ВАРИАНТ 2: Если хочешь iframe (закомментируй кнопку выше и раскомментируй это):
+                    
+                    <iframe 
+                        src="https://www.donationalerts.com/r/jakefantom" 
+                        width="100%" 
+                        height="220" 
+                        frameBorder="0"
+                        scrolling="no"
+                    ></iframe>
+                    
+                    ПРИМЕЧАНИЕ: DonationAlerts может блокировать отображение в iframe
+                    -->
+                </div>
+
+                <!-- 
+                ================================================
+                РЕЗЕРВНАЯ КОПИЯ СТАРОГО КОДА (ЗАКОММЕНТИРОВАНО)
+                ================================================
+                Если что-то пойдет не так, просто удали весь текущий код
+                и раскомментируй этот блок:
+                
+                <div id="donatepay-widget" class="widget-container active">
+                    <iframe 
+                        src="https://widget.donatepay.ru/widgets/page/24b44dc68e48fb37a2f23d99c8e52a1e83f83ce59ca35b9c87a04ee09fd217c3?widget_id=7869312&sum=200" 
+                        width="510" 
+                        height="220" 
+                        frameBorder="0"
+                        scrolling="no"
+                    ></iframe>
+                </div>
+                
+                -->
             </div>
 
             <!-- Социальные ссылки -->
@@ -238,14 +377,33 @@
     </div>
 
     <script>
-        // Матричный дождь с черепами
+        // ========== ПЕРЕКЛЮЧЕНИЕ ПЛАТФОРМ ==========
+        function switchPlatform(platform) {
+            // Убираем active со всех кнопок
+            document.querySelectorAll('.platform-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Добавляем active нажатой кнопке
+            event.target.classList.add('active');
+            
+            // Скрываем все виджеты
+            document.querySelectorAll('.widget-container').forEach(widget => {
+                widget.classList.remove('active');
+            });
+            
+            // Показываем нужный виджет
+            document.getElementById(platform + '-widget').classList.add('active');
+        }
+
+        // ========== МАТРИЧНЫЙ ДОЖДЬ ==========
         const canvas = document.getElementById('skullCanvas');
         const ctx = canvas.getContext('2d');
 
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
 
-        const skulls = ['💀', '🪦', '☠️'];
+        const skulls = ['💀', '', '☠️'];
         const fontSize = 20;
         const columns = canvas.width / fontSize;
         const drops = [];
@@ -274,7 +432,7 @@
 
         setInterval(drawMatrix, 50);
 
-        // Создание плавающих частиц
+        // ========== ПЛАВАЮЩИЕ ЧАСТИЦЫ ==========
         function createParticles() {
             const container = document.getElementById('particles');
             for (let i = 0; i < 20; i++) {
@@ -295,6 +453,25 @@
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
         });
+
+        /*
+        // ========== РЕЗЕРВНЫЙ КОД JAVASCRIPT ==========
+        // Если что-то сломается, можешь использовать старую версию функций
+        
+        function oldSwitchPlatform(platform) {
+            var buttons = document.getElementsByClassName('platform-btn');
+            for (var i = 0; i < buttons.length; i++) {
+                buttons[i].classList.remove('active');
+            }
+            event.target.classList.add('active');
+            
+            var widgets = document.getElementsByClassName('widget-container');
+            for (var i = 0; i < widgets.length; i++) {
+                widgets[i].classList.remove('active');
+            }
+            document.getElementById(platform + '-widget').classList.add('active');
+        }
+        */
     </script>
 
 </body>
