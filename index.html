@@ -73,6 +73,15 @@
             border-color: #07eb0f;
         }
 
+        /* Класс для отключения кастомного курсора */
+        body.default-cursor {
+            cursor: auto;
+        }
+
+        body.default-cursor .custom-cursor {
+            display: none;
+        }
+
         /* ========== МАТРИЧНЫЙ ДОЖДЬ ========== */
         #skullCanvas {
             position: fixed;
@@ -362,54 +371,79 @@
             transform: translateY(-3px);
         }
 
-        /* ========== СЕКРЕТНЫЙ РЕЖИМ (ТОЛЬКО СТРЕЛКИ) ========== */
-        .secret-mode {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.95);
-            z-index: 10000;
+        /* ========== СЕКРЕТНЫЙ РЕЖИМ (СКРЫТЫЙ КОНТЕНТ) ========== */
+        .secret-content {
             display: none;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
+            background: rgba(0, 0, 0, 0.95);
+            border: 2px solid #00ff04;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 20px 0;
+            box-shadow: 0 0 40px rgba(0, 255, 4, 0.6);
+            animation: secretReveal 0.5s ease-out;
         }
 
-        .secret-mode.active {
-            display: flex;
+        .secret-content.active {
+            display: block;
         }
 
-        .secret-mode h2 {
-            font-size: 48px;
-            color: #00ff04;
-            text-shadow: 0 0 30px #00ff04;
-            margin-bottom: 20px;
-            animation: glitch 1s infinite;
+        @keyframes secretReveal {
+            0% {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
         }
 
-        .secret-mode p {
+        .secret-title {
             font-size: 24px;
-            color: #07eb0f;
+            color: #00ff04;
+            margin-bottom: 20px;
+            text-shadow: 0 0 20px rgba(0, 255, 4, 0.8);
         }
 
-        .secret-mode .close-secret {
-            margin-top: 30px;
-            padding: 15px 40px;
+        .secret-video {
+            width: 100%;
+            max-width: 560px;
+            margin: 0 auto 20px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 0 30px rgba(0, 255, 4, 0.5);
+        }
+
+        .secret-video iframe {
+            width: 100%;
+            height: 315px;
+            border: none;
+        }
+
+        .secret-message {
+            font-size: 16px;
+            color: #b0b0b0;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .close-secret {
+            padding: 12px 30px;
             background: #00ff04;
             color: #2e2e2e;
             border: none;
-            border-radius: 10px;
-            font-size: 18px;
+            border-radius: 8px;
+            font-size: 16px;
             font-weight: 700;
             cursor: pointer;
             transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
-        .secret-mode .close-secret:hover {
-            transform: scale(1.1);
-            box-shadow: 0 0 30px #00ff04;
+        .close-secret:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 25px rgba(0, 255, 4, 0.8);
         }
 
         /* ========== ЧАСТИЦЫ ПРИ КЛИКЕ ========== */
@@ -460,6 +494,9 @@
             body {
                 cursor: auto;
             }
+            .secret-video iframe {
+                height: 200px;
+            }
         }
     </style>
 </head>
@@ -477,20 +514,13 @@
     <!-- Плавающие частицы -->
     <div id="particles"></div>
 
-    <!-- Секретный режим -->
-    <div class="secret-mode" id="secretMode">
-        <h2> СЕКРЕТНЫЙ РЕЖИМ АКТИВИРОВАН! </h2>
-        <p>Ты нашёл пасхалку! Ты настоящий геймер! </p>
-        <button class="close-secret" onclick="closeSecretMode()">Закрыть</button>
-    </div>
-
     <div class="container">
         <div class="content-box">
-            <!-- Декоративные черепа -->
+            <!-- Декоративные черепа и надгробия -->
             <div class="skull-decor"></div>
-            <div class="skull-decor"></div>
-            <div class="skull-decor"></div>
-            <div class="skull-decor"></div>
+            <div class="skull-decor">🪦</div>
+            <div class="skull-decor">💀</div>
+            <div class="skull-decor">🪦</div>
 
             <!-- Аватар -->
             <div class="avatar-container">
@@ -538,12 +568,30 @@
                 <!-- DONATIONALERTS -->
                 <div id="donationalerts-widget" class="widget-container">
                     <a href="https://www.donationalerts.com/r/jakefantom" target="_blank" class="da-button">
-                        🔔 Перейти к донату
+                         Перейти к донату
                     </a>
                     <p style="margin-top: 20px; color: #b0b0b0; font-size: 14px;">
                         Откроется в новой вкладке
                     </p>
                 </div>
+            </div>
+
+            <!-- СЕКРЕТНЫЙ КОНТЕНТ (скрыт по умолчанию) -->
+            <div class="secret-content" id="secretContent">
+                <h2 class="secret-title"> СЕКРЕТНЫЙ КОНТЕНТ РАЗБЛОКИРОВАН! </h2>
+                <p class="secret-message">
+                    Ты нашёл пасхалку! Вот эксклюзивное видео только для настоящих фанатов:
+                </p>
+                
+                <!-- ВИДЕО (замени ссылку на свою) -->
+                <div class="secret-video">
+                    <iframe 
+                        src="https://www.youtube.com/embed/ТВОЯ_ССЫЛКА_НА_ВИДЕО" 
+                        allowfullscreen>
+                    </iframe>
+                </div>
+
+                <button class="close-secret" onclick="closeSecretMode()">Закрыть</button>
             </div>
 
             <!-- Социальные ссылки -->
@@ -639,7 +687,7 @@
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
 
-        const skulls = ['💀', '', '☠️'];
+        const skulls = ['💀', '🪦', '️'];
         const fontSize = 20;
         const columns = canvas.width / fontSize;
         const drops = [];
@@ -685,7 +733,6 @@
         createParticles();
 
         // ========== СЕКРЕТНЫЙ РЕЖИМ (ТОЛЬКО СТРЕЛКИ) ==========
-        // Комбинация: ↑ ↑ ↓ ↓ ← → ← →
         const konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight'];
         let konamiIndex = 0;
 
@@ -702,8 +749,13 @@
         });
 
         function activateSecretMode() {
-            document.getElementById('secretMode').classList.add('active');
-            // Добавляем конфетти
+            // Показываем секретный контент
+            document.getElementById('secretContent').classList.add('active');
+            
+            // Отключаем кастомный курсор (Вариант B)
+            document.body.classList.add('default-cursor');
+            
+            // Эффект конфетти
             for (let i = 0; i < 50; i++) {
                 setTimeout(() => {
                     createClickParticles(
@@ -715,7 +767,11 @@
         }
 
         function closeSecretMode() {
-            document.getElementById('secretMode').classList.remove('active');
+            // Скрываем секретный контент
+            document.getElementById('secretContent').classList.remove('active');
+            
+            // Возвращаем кастомный курсор
+            document.body.classList.remove('default-cursor');
         }
 
         // Адаптация canvas при изменении размера окна
